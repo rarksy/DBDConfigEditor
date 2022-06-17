@@ -5,7 +5,7 @@ With vast optimizations and updates since CE1 i have released this as a replacem
 
 CE2 is still in development beta so bugs are to be expected, if you find a bug / crash, dm rarksy#6952 on discord with details.
 
-#Features
+# Features
 
 - Lock & Unlock FPS
 - Disable VSync
