@@ -1,23 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DBD_Config_Editor
 {
     public partial class MainForm : Form
     {
+        static readonly decimal ver = 2.1m;
+        static readonly string url = "https://raw.githubusercontent.com/rarksy/DBDConfigEditor/master/ver.ce2";
         public MainForm()
         {
             InitializeComponent();
@@ -84,6 +81,7 @@ namespace DBD_Config_Editor
                 {
                     MiscPanel.Location = new Point(MiscPanel.Location.X, MiscPanel.Location.Y + 1);
                     MainPanel.Location = new Point(MainPanel.Location.X, MainPanel.Location.Y + 1);
+                    KeybindPanel.Location = new Point(KeybindPanel.Location.X, KeybindPanel.Location.Y + 1);
                     MiscPanel.Height -= 1;
                 }
             }
@@ -98,6 +96,7 @@ namespace DBD_Config_Editor
                 {
                     MiscPanel.Location = new Point(MiscPanel.Location.X, MiscPanel.Location.Y - 1);
                     MainPanel.Location = new Point(MainPanel.Location.X, MainPanel.Location.Y - 1);
+                    KeybindPanel.Location = new Point(KeybindPanel.Location.X, KeybindPanel.Location.Y - 1);
                     MiscPanel.Height += 1;
                 }
             }
@@ -123,12 +122,12 @@ namespace DBD_Config_Editor
                 openFileDialog.ValidateNames = false;
                 openFileDialog.CheckFileExists = false;
                 openFileDialog.CheckPathExists = false;
-                openFileDialog.FileName = "Folder Selection.";
+                openFileDialog.FileName = "Folder Selection. (Do Not Change This)";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     filePath = openFileDialog.FileName;
-                    filePath = filePath.Remove(filePath.Length - 17);
+                    filePath = filePath.Remove(filePath.Length - 38);
                     if (!Directory.Exists($@"C:\Users\{Environment.UserName}\Appdata\Local\DBDCE"))
                         Directory.CreateDirectory($@"C:\Users\{Environment.UserName}\Appdata\Local\DBDCE");
                     File.WriteAllText($@"C:\Users\{Environment.UserName}\Appdata\Local\DBDCE\custompath.DBDCE", filePath);
@@ -142,7 +141,21 @@ namespace DBD_Config_Editor
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
+                string s = webClient.DownloadString(url);
+                if (ver.ToString().Contains(s))
+                {
+                    UpdateLabel.Show();
+                }
+                else
+                {
+                    UpdateLabel.Hide();
+                }
+                Console.WriteLine(ver.ToString());
+                Console.WriteLine(s);
+            }
             if (Directory.Exists($@"C:\Users\{Environment.UserName}\Appdata\Local\DBDCE"))
             {
                 if (File.Exists($@"C:\Users\{Environment.UserName}\Appdata\Local\DBDCE\custompath.DBDCE"))
@@ -212,7 +225,7 @@ namespace DBD_Config_Editor
 
             if (userini.KeyExists("r.DefaultFeature.MotionBlur", "/Script/Engine.GarbageCollectionSettings"))
             {
-                if (userini.ReadValue("/Script/Engine.GarbageCollectionSettings", "r.DefaultFeature.MotionBlur") == "False")
+                if (userini.ReadString("/Script/Engine.GarbageCollectionSettings", "r.DefaultFeature.MotionBlur") == "False")
                 {
                     MotionBlurButton.Text = "Enable Motion Blur";
                     MotionBlurInfoLabel.ForeColor = Color.Green;
@@ -234,7 +247,7 @@ namespace DBD_Config_Editor
 
             if (userini.KeyExists("r.DefaultFeature.Bloom", "/Script/Engine.GarbageCollectionSettings"))
             {
-                if (userini.ReadValue("/Script/Engine.GarbageCollectionSettings", "r.DefaultFeature.Bloom") == "False")
+                if (userini.ReadString("/Script/Engine.GarbageCollectionSettings", "r.DefaultFeature.Bloom") == "False")
                 {
                     BloomButton.Text = "Enable Bloom";
                     BloomInfoLabel.ForeColor = Color.Green;
@@ -256,7 +269,7 @@ namespace DBD_Config_Editor
 
             if (userini.KeyExists("r.DefaultFeature.LensFlare", "/Script/Engine.GarbageCollectionSettings"))
             {
-                if (userini.ReadValue("/Script/Engine.GarbageCollectionSettings", "r.DefaultFeature.LensFlare") == "False")
+                if (userini.ReadString("/Script/Engine.GarbageCollectionSettings", "r.DefaultFeature.LensFlare") == "False")
                 {
                     LensFlareButton.Text = "Enable Lens Flare";
                     LensFlareInfoLabel.ForeColor = Color.Green;
@@ -278,7 +291,7 @@ namespace DBD_Config_Editor
 
             if (userini.KeyExists("r.DefaultFeature.AmbientOcclusion", "/Script/Engine.GarbageCollectionSettings"))
             {
-                if (userini.ReadValue("/Script/Engine.GarbageCollectionSettings", "r.DefaultFeature.AmbientOcclusion") == "False")
+                if (userini.ReadString("/Script/Engine.GarbageCollectionSettings", "r.DefaultFeature.AmbientOcclusion") == "False")
                 {
                     AmbientOcclusionButton.Text = "Enable Ambient Occlusion";
                     AmbientOcclusionInfoLabel.ForeColor = Color.Green;
@@ -299,7 +312,10 @@ namespace DBD_Config_Editor
             }
 
             userini = new IniFile(sPathToUse + @"\GameUserSettings.ini");
-            if (userini.ReadValue("/Script/DeadByDaylight.DBDGameUserSettings", "bUseVSync") == "False")
+
+            ResQualityLabel.Text = $"Resolution Quality ({userini.ReadInt("ScalabilityGroups", "sg.ResolutionQuality") / 1000000})";
+            ResScaleTrackbar.Value = userini.ReadInt("ScalabilityGroups", "sg.ResolutionQuality") / 1000000;
+            if (userini.ReadString("/Script/DeadByDaylight.DBDGameUserSettings", "bUseVSync") == "False")
             {
                 VSyncButton.Text = "Enable VSync";
                 VSyncInfolabel.ForeColor = Color.Green;
@@ -311,19 +327,19 @@ namespace DBD_Config_Editor
                 VSyncInfolabel.Text = "VSync Enabled";
             }
 
-            ViewDistanceCMB.SelectedIndex = Int32.Parse(string.Join(String.Empty, userini.ReadValue("ScalabilityGroups", "sg.ViewDistanceQuality").ToCharArray().Where(Char.IsDigit)));
+            ViewDistanceCMB.SelectedIndex =  userini.ReadInt("ScalabilityGroups", "sg.ViewDistanceQuality");
             var eini = new IniFile(sPathToUse + @"\Engine.ini");
             if (eini.KeyExists("r.DefaultFeature.AntiAliasing", "/Script/Engine.GarbageCollectionSettings"))
                 AntiAliasingCMB.SelectedIndex = 0;
             else
-                AntiAliasingCMB.SelectedIndex = Int32.Parse(string.Join(String.Empty, userini.ReadValue("ScalabilityGroups", "sg.AntiAliasingQuality").ToCharArray().Where(Char.IsDigit)));
-            ShadowCMB.SelectedIndex = Int32.Parse(string.Join(String.Empty, userini.ReadValue("ScalabilityGroups", "sg.ShadowQuality").ToCharArray().Where(Char.IsDigit)));
-            PostProcessingCMB.SelectedIndex = Int32.Parse(string.Join(String.Empty, userini.ReadValue("ScalabilityGroups", "sg.PostProcessQuality").ToCharArray().Where(Char.IsDigit)));
-            TextureCMB.SelectedIndex = Int32.Parse(string.Join(String.Empty, userini.ReadValue("ScalabilityGroups", "sg.TextureQuality").ToCharArray().Where(Char.IsDigit)));
-            EffectsCMB.SelectedIndex = Int32.Parse(string.Join(String.Empty, userini.ReadValue("ScalabilityGroups", "sg.EffectsQuality").ToCharArray().Where(Char.IsDigit)));
-            FoliageCMB.SelectedIndex = Int32.Parse(string.Join(String.Empty, userini.ReadValue("ScalabilityGroups", "sg.FoliageQuality").ToCharArray().Where(Char.IsDigit)));
-            ShadingCMB.SelectedIndex = Int32.Parse(string.Join(String.Empty, userini.ReadValue("ScalabilityGroups", "sg.ShadingQuality").ToCharArray().Where(Char.IsDigit)));
-            AnimationCMB.SelectedIndex = Int32.Parse(string.Join(String.Empty, userini.ReadValue("ScalabilityGroups", "sg.AnimationQuality").ToCharArray().Where(Char.IsDigit)));
+                AntiAliasingCMB.SelectedIndex =  userini.ReadInt("ScalabilityGroups", "sg.AntiAliasingQuality");
+            ShadowCMB.SelectedIndex = userini.ReadInt("ScalabilityGroups", "sg.ShadowQuality");
+            PostProcessingCMB.SelectedIndex = userini.ReadInt("ScalabilityGroups", "sg.PostProcessQuality");
+            TextureCMB.SelectedIndex = userini.ReadInt("ScalabilityGroups", "sg.TextureQuality");
+            EffectsCMB.SelectedIndex = userini.ReadInt("ScalabilityGroups", "sg.EffectsQuality");
+            FoliageCMB.SelectedIndex = userini.ReadInt("ScalabilityGroups", "sg.FoliageQuality");
+            ShadingCMB.SelectedIndex = userini.ReadInt("ScalabilityGroups", "sg.ShadingQuality");
+            AnimationCMB.SelectedIndex = userini.ReadInt("ScalabilityGroups", "sg.AnimationQuality");
 
 
             TimerInit.Stop();
@@ -380,7 +396,7 @@ namespace DBD_Config_Editor
             Directory.CreateDirectory(sPathToUse + @"\exported");
             File.WriteAllText(sPathToUse+@"\exported\GameUserSettings.ini", GUS);
             File.WriteAllText(sPathToUse+@"\exported\Engine.ini", E);
-            Process.Start("file://" + sPathToUse+@"\exported");
+            MessageBox.Show($@"Exported To {sPathToUse}\exported");
         }
 
         private void UnlockFPSButton_Click(object sender, EventArgs e)
@@ -392,7 +408,7 @@ namespace DBD_Config_Editor
                 ini.DeleteSection("/script/engine.engine");
                 FPSInfoLabel.ForeColor = Color.Red;
                 UnlockFPSButton.Text = "Unlock FPS";
-                FPSInfoLabel.Text = "FPS Unlocked";
+                FPSInfoLabel.Text = "FPS Locked";
             }
             else
             {
@@ -413,7 +429,7 @@ namespace DBD_Config_Editor
         private void VSyncButton_Click(object sender, EventArgs e)
         {
             var ini = new IniFile(sPathToUse + @"\GameUserSettings.ini");
-            if (ini.ReadValue("/Script/DeadByDaylight.DBDGameUserSettings", "bUseVSync") == "True")
+            if (ini.ReadString("/Script/DeadByDaylight.DBDGameUserSettings", "bUseVSync") == "True")
             {
                 ini.Write("bUseVSync", "False", "/Script/DeadByDaylight.DBDGameUserSettings");
                 VSyncButton.Text = "Enable VSync";
@@ -482,6 +498,7 @@ namespace DBD_Config_Editor
                 ini.Write("r.DefaultFeature.LensFlare", "False", "/Script/Engine.GarbageCollectionSettings");
                 LensFlareButton.Text = "Enable Lens Flare";
                 LensFlareInfoLabel.ForeColor = Color.Green;
+                LensFlareInfoLabel.Text = "Lens Flare Disabled";
             }
         }
 
@@ -500,6 +517,7 @@ namespace DBD_Config_Editor
                 ini.Write("r.DefaultFeature.AmbientOcclusion", "False", "/Script/Engine.GarbageCollectionSettings");
                 AmbientOcclusionButton.Text = "Enable Ambient Occlusion";
                 AmbientOcclusionInfoLabel.ForeColor = Color.Green;
+                LensFlareInfoLabel.Text = "Ambient Occlusion Disabled";
             }
         }
 
@@ -523,6 +541,60 @@ namespace DBD_Config_Editor
                 ini = new IniFile(sPathToUse + @"\GameUserSettings.ini");
                 ini.Write("sg.AntiAliasingQuality", AntiAliasingCMB.SelectedIndex.ToString(), "ScalabilityGroups");
             }
+        }
+
+        private void ResScaleTrackbar_Scroll(object sender, EventArgs e)
+        {
+            ResQualityLabel.Text = $"Resolution Quality ({ResScaleTrackbar.Value})";
+            var ini = new IniFile(sPathToUse + @"\GameUserSettings.ini");
+            ini.Write("sg.ResolutionQuality", ResScaleTrackbar.Value.ToString() + ".000000", "ScalabilityGroups");
+        }
+
+        private void ShadowCMB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var ini = new IniFile(sPathToUse + @"\GameUserSettings.ini");
+            ini.Write("sg.ShadowQuality", ShadowCMB.SelectedIndex.ToString(), "ScalabilityGroups");
+        }
+
+        private void PostProcessingCMB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var ini = new IniFile(sPathToUse + @"\GameUserSettings.ini");
+            ini.Write("sg.PostProcessQuality", PostProcessingCMB.SelectedIndex.ToString(), "ScalabilityGroups");
+        }
+
+        private void TextureCMB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var ini = new IniFile(sPathToUse + @"\GameUserSettings.ini");
+            ini.Write("sg.TextureQuality", TextureCMB.SelectedIndex.ToString(), "ScalabilityGroups");
+        }
+
+        private void EffectsCMB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var ini = new IniFile(sPathToUse + @"\GameUserSettings.ini");
+            ini.Write("sg.EffectsQuality", EffectsCMB.SelectedIndex.ToString(), "ScalabilityGroups");
+        }
+
+        private void FoliageCMB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var ini = new IniFile(sPathToUse + @"\GameUserSettings.ini");
+            ini.Write("sg.FoliageQuality", FoliageCMB.SelectedIndex.ToString(), "ScalabilityGroups");
+        }
+
+        private void ShadingCMB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var ini = new IniFile(sPathToUse + @"\GameUserSettings.ini");
+            ini.Write("sg.ShadingQuality", ShadingCMB.SelectedIndex.ToString(), "ScalabilityGroups");
+        }
+
+        private void AnimationCMB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var ini = new IniFile(sPathToUse + @"\GameUserSettings.ini");
+            ini.Write("sg.AnimationQuality", AnimationCMB.SelectedIndex.ToString(), "ScalabilityGroups");
+        }
+
+        private void UpdateLabel_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/rarksy/DBDConfigEditor/releases");
         }
     }
 }

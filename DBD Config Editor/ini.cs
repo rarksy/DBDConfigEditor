@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -49,12 +51,20 @@ namespace DBD_Config_Editor
             return Read(Key, Section).Length > 0;
         }
 
-        public string ReadValue(string Section, string Key)
+        public string ReadString(string Section, string Key)
         {
             StringBuilder temp = new StringBuilder(255);
             int i = GetPrivateProfileString(Section, Key, "", temp,
                                             255, this.Path);
             return temp.ToString();
+
+        }
+        public int ReadInt(string Section, string Key)
+        {
+            StringBuilder temp = new StringBuilder(255);
+            int i = GetPrivateProfileString(Section, Key, "", temp,
+                                            255, this.Path);
+            return Int32.Parse(string.Join(String.Empty, temp.ToString().ToCharArray().Where(Char.IsDigit)));
 
         }
     }

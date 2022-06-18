@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.TitleBarPanel = new System.Windows.Forms.Panel();
+            this.UpdateLabel = new System.Windows.Forms.Label();
             this.MinimizeButton = new System.Windows.Forms.Label();
             this.ExitButton = new System.Windows.Forms.Label();
             this.TitleLabel = new System.Windows.Forms.Label();
@@ -47,6 +48,16 @@
             this.BloomButton = new System.Windows.Forms.Button();
             this.LensFlareButton = new System.Windows.Forms.Button();
             this.AmbientOcclusionButton = new System.Windows.Forms.Button();
+            this.AnimationCMB = new System.Windows.Forms.ComboBox();
+            this.ShadingCMB = new System.Windows.Forms.ComboBox();
+            this.FoliageCMB = new System.Windows.Forms.ComboBox();
+            this.EffectsCMB = new System.Windows.Forms.ComboBox();
+            this.TextureCMB = new System.Windows.Forms.ComboBox();
+            this.PostProcessingCMB = new System.Windows.Forms.ComboBox();
+            this.ShadowCMB = new System.Windows.Forms.ComboBox();
+            this.AntiAliasingCMB = new System.Windows.Forms.ComboBox();
+            this.ViewDistanceCMB = new System.Windows.Forms.ComboBox();
+            this.ResScaleTrackbar = new System.Windows.Forms.TrackBar();
             this.MiscPanel = new System.Windows.Forms.Panel();
             this.InfoPanel = new System.Windows.Forms.Panel();
             this.AmbientOcclusionInfoLabel = new System.Windows.Forms.Label();
@@ -58,26 +69,20 @@
             this.FPSInfoLabel = new System.Windows.Forms.Label();
             this.TimerInit = new System.Windows.Forms.Timer(this.components);
             this.MainPanel = new System.Windows.Forms.Panel();
+            this.ResQualityLabel = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.AnimationCMB = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.ShadingCMB = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.FoliageCMB = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.EffectsCMB = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.TextureCMB = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.PostProcessingCMB = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.ShadowCMB = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.AntiAliasingCMB = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.ViewDistanceCMB = new System.Windows.Forms.ComboBox();
+            this.KeybindPanel = new System.Windows.Forms.Panel();
             this.TitleBarPanel.SuspendLayout();
             this.ConfigPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ResScaleTrackbar)).BeginInit();
             this.MiscPanel.SuspendLayout();
             this.InfoPanel.SuspendLayout();
             this.MainPanel.SuspendLayout();
@@ -87,6 +92,7 @@
             // 
             this.TitleBarPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.TitleBarPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TitleBarPanel.Controls.Add(this.UpdateLabel);
             this.TitleBarPanel.Controls.Add(this.MinimizeButton);
             this.TitleBarPanel.Controls.Add(this.ExitButton);
             this.TitleBarPanel.Controls.Add(this.TitleLabel);
@@ -98,6 +104,18 @@
             this.TitleBarPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TitleBarPanel_MouseDown);
             this.TitleBarPanel.MouseLeave += new System.EventHandler(this.TitleBarPanel_MouseLeave);
             this.TitleBarPanel.MouseHover += new System.EventHandler(this.TitleBarPanel_MouseHover);
+            // 
+            // UpdateLabel
+            // 
+            this.UpdateLabel.AutoSize = true;
+            this.UpdateLabel.Font = new System.Drawing.Font("Ebrima", 9F, System.Drawing.FontStyle.Bold);
+            this.UpdateLabel.ForeColor = System.Drawing.Color.Green;
+            this.UpdateLabel.Location = new System.Drawing.Point(820, 8);
+            this.UpdateLabel.Name = "UpdateLabel";
+            this.UpdateLabel.Size = new System.Drawing.Size(125, 15);
+            this.UpdateLabel.TabIndex = 10;
+            this.UpdateLabel.Text = "Click Here To Update";
+            this.UpdateLabel.Click += new System.EventHandler(this.UpdateLabel_Click);
             // 
             // MinimizeButton
             // 
@@ -168,7 +186,7 @@
             this.ExportConfigButton.Size = new System.Drawing.Size(267, 33);
             this.ExportConfigButton.TabIndex = 5;
             this.ExportConfigButton.Text = "Export Config";
-            this.ToolTip.SetToolTip(this.ExportConfigButton, "Copy your config to clipboard to share with others");
+            this.ToolTip.SetToolTip(this.ExportConfigButton, "Export Engine And UserSettings Files");
             this.ExportConfigButton.UseVisualStyleBackColor = false;
             this.ExportConfigButton.Click += new System.EventHandler(this.ExportConfigButton_Click);
             // 
@@ -222,6 +240,7 @@
             this.OpenConfigLocationButton.Size = new System.Drawing.Size(267, 33);
             this.OpenConfigLocationButton.TabIndex = 2;
             this.OpenConfigLocationButton.Text = "Open Config Location";
+            this.ToolTip.SetToolTip(this.OpenConfigLocationButton, "Opens File Explorer At Your Config Location");
             this.OpenConfigLocationButton.UseVisualStyleBackColor = false;
             this.OpenConfigLocationButton.Click += new System.EventHandler(this.OpenConfigLocationButton_Click);
             // 
@@ -239,6 +258,7 @@
             this.ChangeConfigPathButton.Size = new System.Drawing.Size(130, 27);
             this.ChangeConfigPathButton.TabIndex = 1;
             this.ChangeConfigPathButton.Text = "Change Config Path";
+            this.ToolTip.SetToolTip(this.ChangeConfigPathButton, "Change The Location CE2 Uses To Interact With Your Config Files");
             this.ChangeConfigPathButton.UseVisualStyleBackColor = false;
             this.ChangeConfigPathButton.Click += new System.EventHandler(this.ChangeConfigPathButton_Click);
             // 
@@ -270,7 +290,7 @@
             this.UnlockFPSButton.Size = new System.Drawing.Size(267, 33);
             this.UnlockFPSButton.TabIndex = 6;
             this.UnlockFPSButton.Text = "Unlock FPS";
-            this.ToolTip.SetToolTip(this.UnlockFPSButton, "Copy your config to clipboard to share with others");
+            this.ToolTip.SetToolTip(this.UnlockFPSButton, "Uncaps FPS Past The Preset 62 FPS Cap Implemented By BHVR");
             this.UnlockFPSButton.UseVisualStyleBackColor = false;
             this.UnlockFPSButton.Click += new System.EventHandler(this.UnlockFPSButton_Click);
             // 
@@ -288,7 +308,8 @@
             this.VSyncButton.Size = new System.Drawing.Size(267, 33);
             this.VSyncButton.TabIndex = 7;
             this.VSyncButton.Text = "Disable VSync";
-            this.ToolTip.SetToolTip(this.VSyncButton, "Copy your config to clipboard to share with others");
+            this.ToolTip.SetToolTip(this.VSyncButton, "VSync Controls Syncing Your Framerate To Your Monitors Refresh Rate, Can Cause In" +
+        "put Delay Or Capped FPS\r\n");
             this.VSyncButton.UseVisualStyleBackColor = false;
             this.VSyncButton.Click += new System.EventHandler(this.VSyncButton_Click);
             // 
@@ -306,7 +327,7 @@
             this.MotionBlurButton.Size = new System.Drawing.Size(267, 33);
             this.MotionBlurButton.TabIndex = 8;
             this.MotionBlurButton.Text = "Disable Motion Blur";
-            this.ToolTip.SetToolTip(this.MotionBlurButton, "Copy your config to clipboard to share with others");
+            this.ToolTip.SetToolTip(this.MotionBlurButton, "Motion Blur Controls Blurring Objects On The Screen Based On Camera \r\nMotion");
             this.MotionBlurButton.UseVisualStyleBackColor = false;
             this.MotionBlurButton.Click += new System.EventHandler(this.MotionBlurButton_Click);
             // 
@@ -324,7 +345,7 @@
             this.BloomButton.Size = new System.Drawing.Size(267, 33);
             this.BloomButton.TabIndex = 9;
             this.BloomButton.Text = "Disable Bloom";
-            this.ToolTip.SetToolTip(this.BloomButton, "Copy your config to clipboard to share with others");
+            this.ToolTip.SetToolTip(this.BloomButton, "Bloom Controls Rendering Brighter Objects On Darker Backgrounds\r\n");
             this.BloomButton.UseVisualStyleBackColor = false;
             this.BloomButton.Click += new System.EventHandler(this.BloomButton_Click);
             // 
@@ -342,7 +363,7 @@
             this.LensFlareButton.Size = new System.Drawing.Size(267, 33);
             this.LensFlareButton.TabIndex = 10;
             this.LensFlareButton.Text = "Disable Lens Flare";
-            this.ToolTip.SetToolTip(this.LensFlareButton, "Copy your config to clipboard to share with others");
+            this.ToolTip.SetToolTip(this.LensFlareButton, "Lens Flare Controls Light Scattering When Viewing Bright Objects");
             this.LensFlareButton.UseVisualStyleBackColor = false;
             this.LensFlareButton.Click += new System.EventHandler(this.LensFlareButton_Click);
             // 
@@ -360,9 +381,207 @@
             this.AmbientOcclusionButton.Size = new System.Drawing.Size(267, 33);
             this.AmbientOcclusionButton.TabIndex = 11;
             this.AmbientOcclusionButton.Text = "Disable Ambient Occlusion";
-            this.ToolTip.SetToolTip(this.AmbientOcclusionButton, "Copy your config to clipboard to share with others");
+            this.ToolTip.SetToolTip(this.AmbientOcclusionButton, "Ambient Occlusion Controls Light Attenuation Due To Occlusion ");
             this.AmbientOcclusionButton.UseVisualStyleBackColor = false;
             this.AmbientOcclusionButton.Click += new System.EventHandler(this.AmbientOcclusionButton_Click);
+            // 
+            // AnimationCMB
+            // 
+            this.AnimationCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.AnimationCMB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.AnimationCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AnimationCMB.ForeColor = System.Drawing.Color.Silver;
+            this.AnimationCMB.FormattingEnabled = true;
+            this.AnimationCMB.Items.AddRange(new object[] {
+            "Very Low",
+            "Low",
+            "Medium",
+            "High",
+            "Ultra"});
+            this.AnimationCMB.Location = new System.Drawing.Point(14, 272);
+            this.AnimationCMB.Name = "AnimationCMB";
+            this.AnimationCMB.Size = new System.Drawing.Size(121, 21);
+            this.AnimationCMB.TabIndex = 24;
+            this.ToolTip.SetToolTip(this.AnimationCMB, "Determines The Length At Which Animations Will Retain The Highest Functioning Ani" +
+        "mation");
+            this.AnimationCMB.SelectedIndexChanged += new System.EventHandler(this.AnimationCMB_SelectedIndexChanged);
+            // 
+            // ShadingCMB
+            // 
+            this.ShadingCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ShadingCMB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ShadingCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ShadingCMB.ForeColor = System.Drawing.Color.Silver;
+            this.ShadingCMB.FormattingEnabled = true;
+            this.ShadingCMB.Items.AddRange(new object[] {
+            "Very Low",
+            "Low",
+            "Medium",
+            "High",
+            "Ultra"});
+            this.ShadingCMB.Location = new System.Drawing.Point(203, 210);
+            this.ShadingCMB.Name = "ShadingCMB";
+            this.ShadingCMB.Size = new System.Drawing.Size(121, 21);
+            this.ShadingCMB.TabIndex = 22;
+            this.ToolTip.SetToolTip(this.ShadingCMB, "Determines How Strong Textures & Materials Will Reflect Incoming Light");
+            this.ShadingCMB.SelectedIndexChanged += new System.EventHandler(this.ShadingCMB_SelectedIndexChanged);
+            // 
+            // FoliageCMB
+            // 
+            this.FoliageCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.FoliageCMB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.FoliageCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FoliageCMB.ForeColor = System.Drawing.Color.Silver;
+            this.FoliageCMB.FormattingEnabled = true;
+            this.FoliageCMB.Items.AddRange(new object[] {
+            "Very Low",
+            "Low",
+            "Medium",
+            "High",
+            "Ultra"});
+            this.FoliageCMB.Location = new System.Drawing.Point(14, 210);
+            this.FoliageCMB.Name = "FoliageCMB";
+            this.FoliageCMB.Size = new System.Drawing.Size(121, 21);
+            this.FoliageCMB.TabIndex = 20;
+            this.ToolTip.SetToolTip(this.FoliageCMB, "Determines The Thickness Of Foliage Such As Trees, Shrubs & Bushes\r\n");
+            this.FoliageCMB.SelectedIndexChanged += new System.EventHandler(this.FoliageCMB_SelectedIndexChanged);
+            // 
+            // EffectsCMB
+            // 
+            this.EffectsCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.EffectsCMB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.EffectsCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.EffectsCMB.ForeColor = System.Drawing.Color.Silver;
+            this.EffectsCMB.FormattingEnabled = true;
+            this.EffectsCMB.Items.AddRange(new object[] {
+            "Very Low",
+            "Low",
+            "Medium",
+            "High",
+            "Ultra"});
+            this.EffectsCMB.Location = new System.Drawing.Point(203, 147);
+            this.EffectsCMB.Name = "EffectsCMB";
+            this.EffectsCMB.Size = new System.Drawing.Size(121, 21);
+            this.EffectsCMB.TabIndex = 18;
+            this.ToolTip.SetToolTip(this.EffectsCMB, "Determines The Visual Quality Of In-Game Effects Such As Fire, Blood etc\r\n");
+            this.EffectsCMB.SelectedIndexChanged += new System.EventHandler(this.EffectsCMB_SelectedIndexChanged);
+            // 
+            // TextureCMB
+            // 
+            this.TextureCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.TextureCMB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.TextureCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.TextureCMB.ForeColor = System.Drawing.Color.Silver;
+            this.TextureCMB.FormattingEnabled = true;
+            this.TextureCMB.Items.AddRange(new object[] {
+            "Very Low",
+            "Low",
+            "Medium",
+            "High",
+            "Ultra"});
+            this.TextureCMB.Location = new System.Drawing.Point(14, 146);
+            this.TextureCMB.Name = "TextureCMB";
+            this.TextureCMB.Size = new System.Drawing.Size(121, 21);
+            this.TextureCMB.TabIndex = 16;
+            this.ToolTip.SetToolTip(this.TextureCMB, "Determines The Visual Quality Of Texture On Models\r\n");
+            this.TextureCMB.SelectedIndexChanged += new System.EventHandler(this.TextureCMB_SelectedIndexChanged);
+            // 
+            // PostProcessingCMB
+            // 
+            this.PostProcessingCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.PostProcessingCMB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.PostProcessingCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PostProcessingCMB.ForeColor = System.Drawing.Color.Silver;
+            this.PostProcessingCMB.FormattingEnabled = true;
+            this.PostProcessingCMB.Items.AddRange(new object[] {
+            "Very Low",
+            "Low",
+            "Medium",
+            "High",
+            "Ultra"});
+            this.PostProcessingCMB.Location = new System.Drawing.Point(203, 87);
+            this.PostProcessingCMB.Name = "PostProcessingCMB";
+            this.PostProcessingCMB.Size = new System.Drawing.Size(121, 21);
+            this.PostProcessingCMB.TabIndex = 14;
+            this.ToolTip.SetToolTip(this.PostProcessingCMB, "Determines The Strength Of Post Processing Filters Applied By BHVR");
+            this.PostProcessingCMB.SelectedIndexChanged += new System.EventHandler(this.PostProcessingCMB_SelectedIndexChanged);
+            // 
+            // ShadowCMB
+            // 
+            this.ShadowCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ShadowCMB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ShadowCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ShadowCMB.ForeColor = System.Drawing.Color.Silver;
+            this.ShadowCMB.FormattingEnabled = true;
+            this.ShadowCMB.Items.AddRange(new object[] {
+            "Very Low",
+            "Low",
+            "Medium",
+            "High",
+            "Ultra"});
+            this.ShadowCMB.Location = new System.Drawing.Point(14, 87);
+            this.ShadowCMB.Name = "ShadowCMB";
+            this.ShadowCMB.Size = new System.Drawing.Size(121, 21);
+            this.ShadowCMB.TabIndex = 12;
+            this.ToolTip.SetToolTip(this.ShadowCMB, "Determines The Quality Of The Harshness & Visibility Of Shadows\r\n");
+            this.ShadowCMB.SelectedIndexChanged += new System.EventHandler(this.ShadowCMB_SelectedIndexChanged);
+            // 
+            // AntiAliasingCMB
+            // 
+            this.AntiAliasingCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.AntiAliasingCMB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.AntiAliasingCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AntiAliasingCMB.ForeColor = System.Drawing.Color.Silver;
+            this.AntiAliasingCMB.FormattingEnabled = true;
+            this.AntiAliasingCMB.Items.AddRange(new object[] {
+            "Off",
+            "Very Low",
+            "Low",
+            "Medium",
+            "High",
+            "Ultra"});
+            this.AntiAliasingCMB.Location = new System.Drawing.Point(203, 28);
+            this.AntiAliasingCMB.Name = "AntiAliasingCMB";
+            this.AntiAliasingCMB.Size = new System.Drawing.Size(121, 21);
+            this.AntiAliasingCMB.TabIndex = 10;
+            this.ToolTip.SetToolTip(this.AntiAliasingCMB, "Determines The Removal Of Jagged Lines On Models");
+            this.AntiAliasingCMB.SelectedIndexChanged += new System.EventHandler(this.AntiAliasingCMB_SelectedIndexChanged);
+            // 
+            // ViewDistanceCMB
+            // 
+            this.ViewDistanceCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ViewDistanceCMB.Cursor = System.Windows.Forms.Cursors.Default;
+            this.ViewDistanceCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ViewDistanceCMB.ForeColor = System.Drawing.Color.Silver;
+            this.ViewDistanceCMB.FormattingEnabled = true;
+            this.ViewDistanceCMB.Items.AddRange(new object[] {
+            "Very Low",
+            "Low",
+            "Medium",
+            "High",
+            "Ultra"});
+            this.ViewDistanceCMB.Location = new System.Drawing.Point(14, 28);
+            this.ViewDistanceCMB.Name = "ViewDistanceCMB";
+            this.ViewDistanceCMB.Size = new System.Drawing.Size(121, 21);
+            this.ViewDistanceCMB.TabIndex = 0;
+            this.ToolTip.SetToolTip(this.ViewDistanceCMB, "Determines The Distance At Which Objects And The In-Game World Will Be Visible To" +
+        " The Player");
+            this.ViewDistanceCMB.SelectedIndexChanged += new System.EventHandler(this.ViewDistanceCMB_SelectedIndexChanged);
+            // 
+            // ResScaleTrackbar
+            // 
+            this.ResScaleTrackbar.AutoSize = false;
+            this.ResScaleTrackbar.Location = new System.Drawing.Point(205, 270);
+            this.ResScaleTrackbar.Maximum = 130;
+            this.ResScaleTrackbar.Minimum = 70;
+            this.ResScaleTrackbar.Name = "ResScaleTrackbar";
+            this.ResScaleTrackbar.Size = new System.Drawing.Size(121, 31);
+            this.ResScaleTrackbar.TabIndex = 26;
+            this.ResScaleTrackbar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.ToolTip.SetToolTip(this.ResScaleTrackbar, "Determines The Quality At Which The Games Resolution Will Be Scaled, 100% = Nativ" +
+        "e\r\n");
+            this.ResScaleTrackbar.Value = 70;
+            this.ResScaleTrackbar.Scroll += new System.EventHandler(this.ResScaleTrackbar_Scroll);
             // 
             // MiscPanel
             // 
@@ -479,6 +698,8 @@
             // MainPanel
             // 
             this.MainPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.MainPanel.Controls.Add(this.ResQualityLabel);
+            this.MainPanel.Controls.Add(this.ResScaleTrackbar);
             this.MainPanel.Controls.Add(this.label9);
             this.MainPanel.Controls.Add(this.AnimationCMB);
             this.MainPanel.Controls.Add(this.label7);
@@ -502,6 +723,17 @@
             this.MainPanel.Size = new System.Drawing.Size(375, 310);
             this.MainPanel.TabIndex = 4;
             // 
+            // ResQualityLabel
+            // 
+            this.ResQualityLabel.AutoSize = true;
+            this.ResQualityLabel.Font = new System.Drawing.Font("Ebrima", 9F, System.Drawing.FontStyle.Bold);
+            this.ResQualityLabel.ForeColor = System.Drawing.Color.Silver;
+            this.ResQualityLabel.Location = new System.Drawing.Point(206, 253);
+            this.ResQualityLabel.Name = "ResQualityLabel";
+            this.ResQualityLabel.Size = new System.Drawing.Size(126, 15);
+            this.ResQualityLabel.TabIndex = 27;
+            this.ResQualityLabel.Text = "Resolution Quality (x)";
+            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -512,24 +744,6 @@
             this.label9.Size = new System.Drawing.Size(106, 15);
             this.label9.TabIndex = 25;
             this.label9.Text = "Animation Quality";
-            // 
-            // AnimationCMB
-            // 
-            this.AnimationCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.AnimationCMB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.AnimationCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.AnimationCMB.ForeColor = System.Drawing.Color.Silver;
-            this.AnimationCMB.FormattingEnabled = true;
-            this.AnimationCMB.Items.AddRange(new object[] {
-            "Very Low",
-            "Low",
-            "Medium",
-            "High",
-            "Ultra"});
-            this.AnimationCMB.Location = new System.Drawing.Point(14, 272);
-            this.AnimationCMB.Name = "AnimationCMB";
-            this.AnimationCMB.Size = new System.Drawing.Size(121, 21);
-            this.AnimationCMB.TabIndex = 24;
             // 
             // label7
             // 
@@ -542,24 +756,6 @@
             this.label7.TabIndex = 23;
             this.label7.Text = "Shading Quality";
             // 
-            // ShadingCMB
-            // 
-            this.ShadingCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ShadingCMB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.ShadingCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ShadingCMB.ForeColor = System.Drawing.Color.Silver;
-            this.ShadingCMB.FormattingEnabled = true;
-            this.ShadingCMB.Items.AddRange(new object[] {
-            "Very Low",
-            "Low",
-            "Medium",
-            "High",
-            "Ultra"});
-            this.ShadingCMB.Location = new System.Drawing.Point(203, 210);
-            this.ShadingCMB.Name = "ShadingCMB";
-            this.ShadingCMB.Size = new System.Drawing.Size(121, 21);
-            this.ShadingCMB.TabIndex = 22;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -570,24 +766,6 @@
             this.label8.Size = new System.Drawing.Size(88, 15);
             this.label8.TabIndex = 21;
             this.label8.Text = "Foliage Quality";
-            // 
-            // FoliageCMB
-            // 
-            this.FoliageCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.FoliageCMB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.FoliageCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.FoliageCMB.ForeColor = System.Drawing.Color.Silver;
-            this.FoliageCMB.FormattingEnabled = true;
-            this.FoliageCMB.Items.AddRange(new object[] {
-            "Very Low",
-            "Low",
-            "Medium",
-            "High",
-            "Ultra"});
-            this.FoliageCMB.Location = new System.Drawing.Point(14, 210);
-            this.FoliageCMB.Name = "FoliageCMB";
-            this.FoliageCMB.Size = new System.Drawing.Size(121, 21);
-            this.FoliageCMB.TabIndex = 20;
             // 
             // label5
             // 
@@ -600,24 +778,6 @@
             this.label5.TabIndex = 19;
             this.label5.Text = "Effects Quality";
             // 
-            // EffectsCMB
-            // 
-            this.EffectsCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.EffectsCMB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.EffectsCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.EffectsCMB.ForeColor = System.Drawing.Color.Silver;
-            this.EffectsCMB.FormattingEnabled = true;
-            this.EffectsCMB.Items.AddRange(new object[] {
-            "Very Low",
-            "Low",
-            "Medium",
-            "High",
-            "Ultra"});
-            this.EffectsCMB.Location = new System.Drawing.Point(203, 147);
-            this.EffectsCMB.Name = "EffectsCMB";
-            this.EffectsCMB.Size = new System.Drawing.Size(121, 21);
-            this.EffectsCMB.TabIndex = 18;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -628,24 +788,6 @@
             this.label6.Size = new System.Drawing.Size(94, 15);
             this.label6.TabIndex = 17;
             this.label6.Text = "Texture Quality";
-            // 
-            // TextureCMB
-            // 
-            this.TextureCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.TextureCMB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TextureCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.TextureCMB.ForeColor = System.Drawing.Color.Silver;
-            this.TextureCMB.FormattingEnabled = true;
-            this.TextureCMB.Items.AddRange(new object[] {
-            "Very Low",
-            "Low",
-            "Medium",
-            "High",
-            "Ultra"});
-            this.TextureCMB.Location = new System.Drawing.Point(14, 146);
-            this.TextureCMB.Name = "TextureCMB";
-            this.TextureCMB.Size = new System.Drawing.Size(121, 21);
-            this.TextureCMB.TabIndex = 16;
             // 
             // label3
             // 
@@ -658,24 +800,6 @@
             this.label3.TabIndex = 15;
             this.label3.Text = "Post Processing Quality";
             // 
-            // PostProcessingCMB
-            // 
-            this.PostProcessingCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.PostProcessingCMB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.PostProcessingCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.PostProcessingCMB.ForeColor = System.Drawing.Color.Silver;
-            this.PostProcessingCMB.FormattingEnabled = true;
-            this.PostProcessingCMB.Items.AddRange(new object[] {
-            "Very Low",
-            "Low",
-            "Medium",
-            "High",
-            "Ultra"});
-            this.PostProcessingCMB.Location = new System.Drawing.Point(203, 87);
-            this.PostProcessingCMB.Name = "PostProcessingCMB";
-            this.PostProcessingCMB.Size = new System.Drawing.Size(121, 21);
-            this.PostProcessingCMB.TabIndex = 14;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -686,24 +810,6 @@
             this.label4.Size = new System.Drawing.Size(93, 15);
             this.label4.TabIndex = 13;
             this.label4.Text = "Shadow Quality";
-            // 
-            // ShadowCMB
-            // 
-            this.ShadowCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ShadowCMB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.ShadowCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ShadowCMB.ForeColor = System.Drawing.Color.Silver;
-            this.ShadowCMB.FormattingEnabled = true;
-            this.ShadowCMB.Items.AddRange(new object[] {
-            "Very Low",
-            "Low",
-            "Medium",
-            "High",
-            "Ultra"});
-            this.ShadowCMB.Location = new System.Drawing.Point(14, 87);
-            this.ShadowCMB.Name = "ShadowCMB";
-            this.ShadowCMB.Size = new System.Drawing.Size(121, 21);
-            this.ShadowCMB.TabIndex = 12;
             // 
             // label2
             // 
@@ -716,26 +822,6 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "Anti-Aliasing Quality";
             // 
-            // AntiAliasingCMB
-            // 
-            this.AntiAliasingCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.AntiAliasingCMB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.AntiAliasingCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.AntiAliasingCMB.ForeColor = System.Drawing.Color.Silver;
-            this.AntiAliasingCMB.FormattingEnabled = true;
-            this.AntiAliasingCMB.Items.AddRange(new object[] {
-            "Off",
-            "Very Low",
-            "Low",
-            "Medium",
-            "High",
-            "Ultra"});
-            this.AntiAliasingCMB.Location = new System.Drawing.Point(203, 28);
-            this.AntiAliasingCMB.Name = "AntiAliasingCMB";
-            this.AntiAliasingCMB.Size = new System.Drawing.Size(121, 21);
-            this.AntiAliasingCMB.TabIndex = 10;
-            this.AntiAliasingCMB.SelectedIndexChanged += new System.EventHandler(this.AntiAliasingCMB_SelectedIndexChanged);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -747,24 +833,13 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "View Distance Quality";
             // 
-            // ViewDistanceCMB
+            // KeybindPanel
             // 
-            this.ViewDistanceCMB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ViewDistanceCMB.Cursor = System.Windows.Forms.Cursors.Default;
-            this.ViewDistanceCMB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ViewDistanceCMB.ForeColor = System.Drawing.Color.Silver;
-            this.ViewDistanceCMB.FormattingEnabled = true;
-            this.ViewDistanceCMB.Items.AddRange(new object[] {
-            "Very Low",
-            "Low",
-            "Medium",
-            "High",
-            "Ultra"});
-            this.ViewDistanceCMB.Location = new System.Drawing.Point(14, 28);
-            this.ViewDistanceCMB.Name = "ViewDistanceCMB";
-            this.ViewDistanceCMB.Size = new System.Drawing.Size(121, 21);
-            this.ViewDistanceCMB.TabIndex = 0;
-            this.ViewDistanceCMB.SelectedIndexChanged += new System.EventHandler(this.ViewDistanceCMB_SelectedIndexChanged);
+            this.KeybindPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.KeybindPanel.Location = new System.Drawing.Point(390, 38);
+            this.KeybindPanel.Name = "KeybindPanel";
+            this.KeybindPanel.Size = new System.Drawing.Size(322, 310);
+            this.KeybindPanel.TabIndex = 5;
             // 
             // MainForm
             // 
@@ -772,6 +847,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.ClientSize = new System.Drawing.Size(1000, 620);
+            this.Controls.Add(this.KeybindPanel);
             this.Controls.Add(this.MainPanel);
             this.Controls.Add(this.InfoPanel);
             this.Controls.Add(this.MiscPanel);
@@ -787,6 +863,7 @@
             this.TitleBarPanel.PerformLayout();
             this.ConfigPanel.ResumeLayout(false);
             this.ConfigPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ResScaleTrackbar)).EndInit();
             this.MiscPanel.ResumeLayout(false);
             this.InfoPanel.ResumeLayout(false);
             this.InfoPanel.PerformLayout();
@@ -845,6 +922,10 @@
         private System.Windows.Forms.ComboBox AntiAliasingCMB;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox AnimationCMB;
+        private System.Windows.Forms.Label ResQualityLabel;
+        private System.Windows.Forms.TrackBar ResScaleTrackbar;
+        private System.Windows.Forms.Panel KeybindPanel;
+        private System.Windows.Forms.Label UpdateLabel;
     }
 }
 
