@@ -137,7 +137,10 @@ namespace DBD_Config_Editor
             }
         }
 
-
+        private void MainForm_Closing(object sender, FormClosingEventArgs e)
+        {
+            _helper.DoReadOnly(true);
+        }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -145,14 +148,10 @@ namespace DBD_Config_Editor
             {
                 webClient.CachePolicy = new System.Net.Cache.RequestCachePolicy(System.Net.Cache.RequestCacheLevel.NoCacheNoStore);
                 string s = webClient.DownloadString(url);
-                if (ver.ToString().Contains(s))
-                {
-                    UpdateLabel.Show();
-                }
-                else
-                {
-                    UpdateLabel.Hide();
-                }
+                if (ver.ToString().Contains(s))                
+                    UpdateLabel.Show();          
+                else UpdateLabel.Hide();
+                
                 Console.WriteLine(ver.ToString());
                 Console.WriteLine(s);
             }
