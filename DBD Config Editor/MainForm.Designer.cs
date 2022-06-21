@@ -859,7 +859,7 @@
             this.Text = "MainForm";
             this.Activated += new System.EventHandler(this.OnFormFocus);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.)
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_Closing);
             this.TitleBarPanel.ResumeLayout(false);
             this.TitleBarPanel.PerformLayout();
             this.ConfigPanel.ResumeLayout(false);

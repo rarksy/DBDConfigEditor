@@ -61,10 +61,7 @@ namespace DBD_Config_Editor
         }
         public int ReadInt(string Section, string Key)
         {
-            StringBuilder temp = new StringBuilder(255);
-            int i = GetPrivateProfileString(Section, Key, "", temp,
-                                            255, this.Path);
-            return Int32.Parse(string.Join(String.Empty, temp.ToString().ToCharArray().Where(Char.IsDigit)));
+            return Int32.Parse(string.Join(String.Empty, ReadString(Section, Key).ToCharArray().Where(Char.IsDigit)));
 
         }
     }
