@@ -579,7 +579,7 @@
             this.ResScaleTrackbar.TabIndex = 26;
             this.ResScaleTrackbar.TickStyle = System.Windows.Forms.TickStyle.None;
             this.ToolTip.SetToolTip(this.ResScaleTrackbar, "Determines The Quality At Which The Games Resolution Will Be Scaled, 100% = Nativ" +
-        "e\r\n");
+        "e.\r\n\r\n");
             this.ResScaleTrackbar.Value = 70;
             this.ResScaleTrackbar.Scroll += new System.EventHandler(this.ResScaleTrackbar_Scroll);
             // 
@@ -858,8 +858,8 @@
             this.Opacity = 0.97D;
             this.Text = "MainForm";
             this.Activated += new System.EventHandler(this.OnFormFocus);
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_Closing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.TitleBarPanel.ResumeLayout(false);
             this.TitleBarPanel.PerformLayout();
             this.ConfigPanel.ResumeLayout(false);

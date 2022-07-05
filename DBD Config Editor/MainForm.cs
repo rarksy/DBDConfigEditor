@@ -13,7 +13,7 @@ namespace DBD_Config_Editor
 {
     public partial class MainForm : Form
     {
-        static readonly decimal ver = 2.1m;
+        static readonly decimal ver = 2.3m;
         static readonly string url = "https://raw.githubusercontent.com/rarksy/DBDConfigEditor/master/ver.ce2";
         public MainForm()
         {
@@ -312,8 +312,13 @@ namespace DBD_Config_Editor
 
             userini = new IniFile(sPathToUse + @"\GameUserSettings.ini");
 
+            if (Enumerable.Range(70, 135).Contains(userini.ReadInt("ScalabilityGroups", "sg.ResolutionQuality") / 1000000)) {
+                ResScaleTrackbar.Value = userini.ReadInt("ScalabilityGroups", "sg.ResolutionQuality") / 1000000;
+            }
+            else {
+                ResScaleTrackbar.Value = 100;
+            }
             ResQualityLabel.Text = $"Resolution Quality ({userini.ReadInt("ScalabilityGroups", "sg.ResolutionQuality") / 1000000})";
-            ResScaleTrackbar.Value = userini.ReadInt("ScalabilityGroups", "sg.ResolutionQuality") / 1000000;
             if (userini.ReadString("/Script/DeadByDaylight.DBDGameUserSettings", "bUseVSync") == "False")
             {
                 VSyncButton.Text = "Enable VSync";
