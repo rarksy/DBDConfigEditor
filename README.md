@@ -29,7 +29,7 @@ CE2 is still in development beta so bugs are to be expected, if you find a bug /
 
 # FAQ
 
-For Questions Or Inquiries DM rarksy#6952 on discord
+For Questions Or Inquiries DM rarksy#6952 on discord 
 
 ![image](https://user-images.githubusercontent.com/70506725/174428078-808682d9-02bb-436a-a897-deb5f5ec86a0.png)
 
